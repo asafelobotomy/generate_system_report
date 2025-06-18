@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Define required packages and commands
-declare -A REQUIRED_TOOLS=(
+# Define optional packages and commands
+declare -A OPTIONAL_TOOLS=(
   [hostname]="inetutils"
   [inxi]="inxi"
   [lspci]="pciutils"
@@ -11,17 +11,17 @@ declare -A REQUIRED_TOOLS=(
 
 MISSING_PKGS=()
 
-# Check for required commands
-for CMD in "${!REQUIRED_TOOLS[@]}"; do
+# Check for optional commands
+for CMD in "${!OPTIONAL_TOOLS[@]}"; do
   if ! command -v "$CMD" &> /dev/null; then
-    echo "Missing required tool: $CMD"
-    MISSING_PKGS+=("${REQUIRED_TOOLS[$CMD]}")
+  echo "Missing optional tool: $CMD"
+  MISSING_PKGS+=("${OPTIONAL_TOOLS[$CMD]}")
   fi
 done
 
 # Prompt to install missing packages
 if [[ ${#MISSING_PKGS[@]} -gt 0 ]]; then
-  echo -e "\nThe following packages are missing and required:"
+  echo -e "\nThe following optional packages are missing:"
   echo "${MISSING_PKGS[@]}"
   read -rp "Would you like to install them now? [Y/n]: " REPLY
   REPLY=${REPLY,,} # to lowercase

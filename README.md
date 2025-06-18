@@ -13,7 +13,7 @@ Run the script directly from a terminal:
 bash generate_system_report.sh
 ```
 
-It checks for several helper utilities and offers to install them via `pacman`
+It checks for several optional helper utilities and offers to install them via `pacman`
 if missing. A report file will be created in the current directory named
 `system_report_<hostname>_<timestamp>.txt`.
 
@@ -46,7 +46,7 @@ To generate a complete report, these packages should be installed:
 - `usbutils` to list USB devices
 - `arch-audit` to check for security updates
 
-The script will prompt to install missing packages automatically, but you can
+The script will prompt to install any missing optional packages automatically, but you can
 decline and run with limited output.
 
 ## License
