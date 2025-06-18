@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Verify pacman exists
+if ! command -v pacman &> /dev/null; then
+  echo "pacman not found. Package-related sections will be skipped."
+  HAS_PACMAN=0
+else
+  HAS_PACMAN=1
+  if (( EUID == 0 )); then
+    PACMAN_CMD="pacman"
+  else
+    PACMAN_CMD="sudo pacman"
+  fi
+fi
+
 # Define optional packages and commands
 declare -A OPTIONAL_TOOLS=(
   [hostname]="inetutils"
@@ -19,17 +32,20 @@ for CMD in "${!OPTIONAL_TOOLS[@]}"; do
   fi
 done
 
-# Prompt to install missing packages
-if [[ ${#MISSING_PKGS[@]} -gt 0 ]]; then
+# Prompt to install missing packages when pacman is available
+if (( HAS_PACMAN )) && [[ ${#MISSING_PKGS[@]} -gt 0 ]]; then
   echo -e "\nThe following optional packages are missing:"
   echo "${MISSING_PKGS[@]}"
   read -rp "Would you like to install them now? [Y/n]: " REPLY
   REPLY=${REPLY,,} # to lowercase
   if [[ "$REPLY" =~ ^(y|yes)?$ ]]; then
-    sudo pacman -S --needed "${MISSING_PKGS[@]}"
+    $PACMAN_CMD -S --needed "${MISSING_PKGS[@]}"
   else
     echo "Continuing without installing missing packages. Some information may be skipped."
   fi
+elif [[ ${#MISSING_PKGS[@]} -gt 0 ]]; then
+  echo "The following optional packages are missing but cannot be installed automatically:"
+  echo "${MISSING_PKGS[@]}"
 fi
 
 # Safely get hostname fallback
@@ -88,22 +104,38 @@ echo "Generating system report..."
   echo -e "\n======================"
   echo " All Installed Packages (including dependencies)"
   echo "======================"
-  pacman -Q
+  if (( HAS_PACMAN )); then
+    pacman -Q
+  else
+    echo "pacman not installed"
+  fi
 
   echo -e "\n======================"
   echo " Explicitly Installed Packages"
   echo "======================"
-  pacman -Qe
+  if (( HAS_PACMAN )); then
+    pacman -Qe
+  else
+    echo "pacman not installed"
+  fi
 
   echo -e "\n======================"
   echo " Foreign Packages (likely AUR or manually installed)"
   echo "======================"
-  pacman -Qm
+  if (( HAS_PACMAN )); then
+    pacman -Qm
+  else
+    echo "pacman not installed"
+  fi
 
   echo -e "\n======================"
   echo " Orphaned Packages"
   echo "======================"
-  pacman -Qdt || echo "No orphaned packages found."
+  if (( HAS_PACMAN )); then
+    pacman -Qdt || echo "No orphaned packages found."
+  else
+    echo "pacman not installed"
+  fi
 
   echo -e "\n======================"
   echo " Pending Security Updates"
