@@ -28,7 +28,7 @@ them if possible. A report file will be created in the current directory named
 
 ## Prerequisites
 
-`generate_arch_report.sh` assumes an Arch Linux environment with the `pacman`
+`generate_arch_report.sh` expects an Arch Linux environment with the `pacman`
 package manager available. If `pacman` cannot be found, package listings and
 automatic installation of optional tools are skipped.
 
