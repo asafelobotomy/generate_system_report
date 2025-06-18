@@ -1,7 +1,7 @@
 # System Report Generation Script
 
 This repository contains shell scripts to generate detailed system reports.
-`generate_system_report.sh` targets Arch Linux systems,
+`generate_arch_report.sh` targets Arch Linux systems,
 `generate_ubuntu_report.sh` performs the same tasks for Ubuntu and
 Ubuntu-based distributions, and `generate_fedora_report.sh` is designed for
 Fedora. The scripts can run with only standard utilities,
@@ -13,7 +13,7 @@ Run the appropriate script directly from a terminal:
 
 ```bash
 # For Arch Linux
-bash generate_system_report.sh
+bash generate_arch_report.sh
 
 # For Ubuntu
 bash generate_ubuntu_report.sh
@@ -28,7 +28,7 @@ them if possible. A report file will be created in the current directory named
 
 ## Prerequisites
 
-`generate_system_report.sh` assumes an Arch Linux environment with the `pacman`
+`generate_arch_report.sh` assumes an Arch Linux environment with the `pacman`
 package manager available. If `pacman` cannot be found, package listings and
 automatic installation of optional tools are skipped.
 
