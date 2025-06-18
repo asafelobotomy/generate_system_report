@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # Verify pacman exists
 if ! command -v pacman &> /dev/null; then

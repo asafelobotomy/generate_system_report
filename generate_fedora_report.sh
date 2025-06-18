@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # Verify dnf exists
 if ! command -v dnf &> /dev/null; then
