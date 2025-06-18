@@ -13,9 +13,14 @@ Run the script directly from a terminal:
 bash generate_system_report.sh
 ```
 
-It checks for several optional helper utilities and offers to install them via `pacman`
-if missing. A report file will be created in the current directory named
-`system_report_<hostname>_<timestamp>.txt`.
+It checks for several optional helper utilities and offers to install them via `pacman` if missing. A report file will be created in the current directory named `system_report_<hostname>_<timestamp>.txt`.
+
+## Prerequisites
+
+The script assumes an Arch Linux environment with the `pacman` package manager
+available. If `pacman` cannot be found, package listings and automatic
+installation of optional tools are skipped. Installing packages requires root
+privileges, so run the script as `root` or ensure `sudo` is configured.
 
 ## Information Collected
 
