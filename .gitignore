@@ -1,0 +1,5 @@
+system_report_*.txt
+# Temporary files
+*.log
+*~
+.DS_Store
