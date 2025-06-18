@@ -26,6 +26,9 @@ Each script checks for several optional helper utilities and offers to install
 them if possible. A report file will be created in the current directory named
 `system_report_<hostname>_<timestamp>.txt`.
 
+All scripts use `#!/usr/bin/env bash` and enable `set -euo pipefail` to abort on
+errors and undefined variables.
+
 ## Prerequisites
 
 `generate_arch_report.sh` expects an Arch Linux environment with the `pacman`
