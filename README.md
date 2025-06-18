@@ -1,14 +1,15 @@
 # System Report Generation Script
 
 This repository contains shell scripts to generate detailed system reports.
-`generate_system_report.sh` targets Arch Linux systems, while
+`generate_system_report.sh` targets Arch Linux systems,
 `generate_ubuntu_report.sh` performs the same tasks for Ubuntu and
-Ubuntu-based distributions. The scripts can run with only standard utilities,
+Ubuntu-based distributions, and `generate_fedora_report.sh` is designed for
+Fedora. The scripts can run with only standard utilities,
 but installing a few optional tools allows them to gather extra information.
 
 ## Usage
 
-Run either script directly from a terminal:
+Run the appropriate script directly from a terminal:
 
 ```bash
 # For Arch Linux
@@ -16,6 +17,9 @@ bash generate_system_report.sh
 
 # For Ubuntu
 bash generate_ubuntu_report.sh
+
+# For Fedora
+bash generate_fedora_report.sh
 ```
 
 Each script checks for several optional helper utilities and offers to install
@@ -32,6 +36,10 @@ automatic installation of optional tools are skipped.
 If `apt-get` cannot be found, package listings and automatic installation of
 optional tools are skipped. Installing packages requires root privileges, so
 run the script as `root` or ensure `sudo` is configured.
+
+`generate_fedora_report.sh` expects a Fedora system with `dnf` available. If
+`dnf` cannot be found, package listings and automatic installation of optional
+tools are skipped.
 
 ## Information Collected
 
@@ -64,6 +72,7 @@ To generate a complete report, these packages should be installed:
 - `usbutils` to list USB devices
 - `arch-audit` on Arch to check for security updates
 - `update-notifier-common` on Ubuntu for `ubuntu-security-status`
+- `dnf-plugins-core` on Fedora for `repoquery` and `updateinfo`
 
 The scripts will prompt to install any missing optional packages automatically,
 but you can decline and run with limited output.
